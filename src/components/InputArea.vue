@@ -14,17 +14,17 @@
 		<!-- Some Practice -->
 		<!-- Two way binding -->
 		<!-- <p>v-model</p>
-    <input type="text" v-model="item1">
-    <p>My input - {{ item1 }}</p>
+		<input type="text" v-model="item1">
+		<p>My input - {{ item1 }}</p>
 
-    <p>v-bind and v-on</p>
-    <input :value="item2" @input="item2 = $event.target.value">
-    <p>My input - {{ item2 }}</p> -->
+		<p>v-bind and v-on</p>
+		<input :value="item2" @input="item2 = $event.target.value">
+		<p>My input - {{ item2 }}</p> -->
 
 		<!-- Deliver and Emit -->
 		<!-- <p>Key up enter - the same layer</p>
-    <input type="text" v-model="item3" v-on:keyup.enter="addData">
-    <p>My input - {{ item3 }}</p> -->
+		<input type="text" v-model="item3" v-on:keyup.enter="addData">
+		<p>My input - {{ item3 }}</p> -->
 	</div>
 </template>
 
