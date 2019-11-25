@@ -13,18 +13,21 @@
 			@deleteItem="deleteItem"
 		/>
 		<hr>
+		<counter />
 	</div>
 </template>
 
 <script>
 import InputArea from './components/InputArea.vue';
 import List from './components/List.vue';
+import Counter from './components/Count.vue';
 
 export default {
 	name: 'App',
 	components: {
 		InputArea,
 		List,
+		Counter,
 	},
 	data() {
 		return {
