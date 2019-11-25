@@ -1,18 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id="app">
+		<img
+			alt="Vue logo"
+			src="./assets/logo.png"
+		>
+		<input-area
+			msg="please add your todos"
+			@addItem="addItem"
+		/>
+		<list
+			:list="list"
+			@deleteItem="deleteItem"
+		/>
+		<hr>
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import InputArea from './components/InputArea.vue';
+import List from './components/List.vue';
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld,
-  },
+	name: 'App',
+	components: {
+		InputArea,
+		List,
+	},
+	data() {
+		return {
+			listIndex: 1,
+			list: [],
+		};
+	},
+	methods: {
+		addItem(value) {
+			this.list = [...this.list, {id: this.listIndex, text: value}];
+			this.listIndex += 1;
+		},
+		deleteItem(item) {
+			this.list = this.list.filter(obj => obj.id !== item.id);
+		},
+	},
 };
 </script>
 
