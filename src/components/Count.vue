@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div>
+		<div class="block">
 			<h2>State</h2>
 			<p>count: {{ count }}</p>
 			<p>mapStateCount {{ mapStateCount }}</p>
@@ -16,7 +16,7 @@
 				</button>
 			</p>
 		</div>
-		<div>
+		<div class="block">
 			<h2>Getters</h2>
 			<p>doneTodos: {{ doneTodos }}</p>
 			<p>filterId: {{ filterId }} - filterTodo: {{ filterTodo }}</p>
@@ -75,5 +75,9 @@ export default component;
 <style scoped>
 button {
     margin: 4px;
+}
+.block {
+	text-align: left;
+	margin-left: 16px;
 }
 </style>
