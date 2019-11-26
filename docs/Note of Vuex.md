@@ -74,5 +74,4 @@ similar to events
   ```
 
 - Mutations Follow Vue's Reactivity Rules
-
-  
+- Mutations Must Be Synchronous => If want to use asynchronous operations, use Actions
