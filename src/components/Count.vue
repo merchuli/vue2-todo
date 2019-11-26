@@ -1,31 +1,44 @@
 <template>
 	<div>
-		<p>count: {{ count }}</p>
-		<p>mapStateCount {{ mapStateCount }}</p>
-		<p>mapStateCountAlias {{ mapStateCountAlias }}</p>
-		<p>localCount: {{ localCount }} | mapStateCountPlusLocalState {{ mapStateCountPlusLocalState }}</p>
+		<div>
+			<h2>State</h2>
+			<p>count: {{ count }}</p>
+			<p>mapStateCount {{ mapStateCount }}</p>
+			<p>mapStateCountAlias {{ mapStateCountAlias }}</p>
+			<p>localCount: {{ localCount }} | mapStateCountPlusLocalState {{ mapStateCountPlusLocalState }}</p>
 
-		<p>
-			<button @click="increment">
-				+
-			</button>
-			<button @click="decrement">
-				-
-			</button>
-		</p>
+			<p>
+				<button @click="increment">
+					+
+				</button>
+				<button @click="decrement">
+					-
+				</button>
+			</p>
+		</div>
+		<div>
+			<h2>Getters</h2>
+			<p>doneTodos: {{ doneTodos }}</p>
+			<p>filterId: {{ filterId }} - filterTodo: {{ filterTodo }}</p>
+			<p>mapGetters - doneTodosCount: {{ doneTodosCount }}</p>
+		</div>
 	</div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapGetters} from 'vuex';
 
 const component = {
 	data() {
 		return {
+			// for state
 			localCount: 5,
+			// for getters
+			filterId: 2,
 		};
 	},
 	computed: {
+		// for state
 		count() {
 			return this.$store.state.count;
 		},
@@ -36,6 +49,16 @@ const component = {
 				return state.count + this.localCount;
 			},
 		}),
+		// for getters
+		doneTodos() {
+			return this.$store.getters.doneTodos;
+		},
+		filterTodo() {
+			return this.$store.getters.getTodoById(this.filterId);
+		},
+		...mapGetters([
+			'doneTodosCount',
+		]),
 	},
 	methods: {
 		increment() {
@@ -46,6 +69,7 @@ const component = {
 		},
 	},
 };
+
 export default component;
 </script>
 <style scoped>
