@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from 'vuex';
+import {mapState, mapGetters, mapMutations} from 'vuex';
 
 const component = {
 	data() {
@@ -74,12 +74,18 @@ const component = {
 		]),
 	},
 	methods: {
-		decrement() {
-			this.$store.commit('decrement');
-		},
-		increment() {
-			this.$store.commit('increment');
-		},
+		...mapMutations([
+			// this.$store.commit('decrement');
+			'decrement',
+			// this.$store.commit('increment');
+			'increment',
+		]),
+		// decrement() {
+		// 	this.$store.commit('decrement');
+		// },
+		// increment() {
+		// 	this.$store.commit('increment');
+		// },
 		multiIncrement() {
 			this.$store.commit('multiIncrement', this.multiIncrementNum);
 		},
