@@ -31,7 +31,7 @@ Like computed properties, a getter's result is cached based on its dependencies,
 
   
 
-Method-Styled Access
+- Method-Styled Access
 
 ```javascript
 getters: {
@@ -51,3 +51,28 @@ store.getters.getTodoById(2)
 
 
 ### mutations
+
+change state
+
+similar to events
+
+- Commit with Payload
+
+  ```javascript
+  // ...
+  mutations: {
+    increment (state, payload) {
+      state.count += payload.amount
+    }
+  }
+  ```
+
+  ```javascript
+  store.commit('increment', {
+    amount: 10
+  })
+  ```
+
+- Mutations Follow Vue's Reactivity Rules
+
+  

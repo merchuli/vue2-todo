@@ -15,7 +15,13 @@ const initGetters = {
 	getTodoById: state => id => state.todos.find(todo => todo.id === id),
 };
 
-const mutations = {increment: state => { state.count += 1; }, decrement: state => { state.count -= 1; }};
+const mutations = {
+	increment: state => { state.count += 1; },
+	decrement: state => { state.count -= 1; },
+	multiIncrement: (state, n) => { state.count *= n; },
+	decrementNum: (state, payload) => { state.count -= payload.amount; },
+	incrementNum: (state, payload) => { state.count += payload.amount; },
+};
 
 
 Vue.use(Vuex);
