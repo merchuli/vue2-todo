@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<p>{{ count }}</p>
+		<p>count: {{ count }}</p>
+		<p>mapStateCount {{ mapStateCount }}</p>
+		<p>mapStateCountAlias {{ mapStateCountAlias }}</p>
+		<p>localCount: {{ localCount }} | mapStateCountPlusLocalState {{ mapStateCountPlusLocalState }}</p>
+
 		<p>
 			<button @click="increment">
 				+
@@ -13,11 +17,25 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
+
 const component = {
+	data() {
+		return {
+			localCount: 5,
+		};
+	},
 	computed: {
 		count() {
 			return this.$store.state.count;
 		},
+		...mapState({
+			mapStateCount: state => state.count,
+			mapStateCountAlias: 'count',
+			mapStateCountPlusLocalState(state) {
+				return state.count + this.localCount;
+			},
+		}),
 	},
 	methods: {
 		increment() {

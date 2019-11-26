@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h1>Todo List</h1>
 		<p>{{ msg }}</p>
 		<!-- <p>Key up enter - different layers</p> -->
 		<input

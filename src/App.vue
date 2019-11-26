@@ -4,6 +4,7 @@
 			alt="Vue logo"
 			src="./assets/logo.png"
 		>
+		<h1>Practice Vue - Todo List</h1>
 		<input-area
 			msg="please add your todos"
 			@addItem="addItem"
@@ -13,6 +14,7 @@
 			@deleteItem="deleteItem"
 		/>
 		<hr>
+		<h1>Practice Vuex</h1>
 		<counter />
 	</div>
 </template>
