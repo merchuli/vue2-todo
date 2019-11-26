@@ -8,11 +8,11 @@
 			<p>localCount: {{ localCount }} | mapStateCountPlusLocalState {{ mapStateCountPlusLocalState }}</p>
 
 			<p>
-				<button @click="increment">
-					+
-				</button>
 				<button @click="decrement">
 					-
+				</button>
+				<button @click="increment">
+					+
 				</button>
 			</p>
 		</div>
