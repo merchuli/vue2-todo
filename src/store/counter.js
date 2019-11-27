@@ -41,6 +41,8 @@ const actions = {
 		}, 3000);
 	}),
 	actionB: ({dispatch, commit}) => dispatch('promiseIncrement').then(() => setTimeout(() => commit('incrementNum', {amount: 3}), 5000)),
+	// assuming `getData()` return Promises
+	// actionC: async ({ commit}) => commit('gotData', await getData()),
 };
 
 Vue.use(Vuex);
