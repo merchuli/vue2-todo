@@ -22,6 +22,9 @@
 				<button @click="decrement">
 					-
 				</button>
+				<button @click="reset">
+					Reset
+				</button>
 				<button @click="increment">
 					+
 				</button>
@@ -33,11 +36,34 @@
 				</button>
 			</p>
 		</div>
+		<div class="block">
+			<h2>Actions</h2>
+			<p>action increment</p>
+			<button @click="actionIncrement">
+				+
+			</button>
+			<p>action increment (short)</p>
+			<button @click="actionShortIncrement">
+				+
+			</button>
+			<p>async increment (delay 2s)</p>
+			<button @click="asyncDecrementNum">
+				-3
+			</button>
+			<button @click="asyncIncrement">
+				+
+			</button>
+			<button @click="asyncIncrementNum">
+				+3
+			</button>
+		</div>
 	</div>
 </template>
 
 <script>
-import {mapState, mapGetters, mapMutations} from 'vuex';
+import {
+	mapState, mapGetters, mapMutations, mapActions,
+} from 'vuex';
 
 const component = {
 	data() {
@@ -74,11 +100,13 @@ const component = {
 		]),
 	},
 	methods: {
+		// == For mutations ==
 		...mapMutations([
 			// this.$store.commit('decrement');
 			'decrement',
 			// this.$store.commit('increment');
 			'increment',
+			'reset',
 		]),
 		// decrement() {
 		// 	this.$store.commit('decrement');
@@ -96,6 +124,28 @@ const component = {
 		// Object-Styled commit
 		incrementNum() {
 			this.$store.commit({type: 'incrementNum', amount: 3});
+		},
+		// == For actions ==
+		...mapActions([
+			'actionIncrement',
+			'actionShortIncrement',
+		]),
+		// actionIncrement() {
+		// 	this.$store.dispatch('actionIncrement');
+		// },
+		// actionShortIncrement() {
+		// 	this.$store.dispatch('actionShortIncrement');
+		// },
+		asyncIncrement() {
+			this.$store.dispatch('asyncIncrement');
+		},
+		// Dispatch with payload
+		asyncDecrementNum() {
+			this.$store.dispatch('asyncDecrementNum', {amount: 3});
+		},
+		// Object-Styled dispatch
+		asyncIncrementNum() {
+			this.$store.dispatch({type: 'asyncIncrementNum', amount: 3});
 		},
 	},
 };

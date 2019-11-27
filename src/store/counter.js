@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// State
 const initState = {
 	count: 0,
 	todos: [
@@ -9,13 +10,16 @@ const initState = {
 	],
 };
 
+// Getters
 const initGetters = {
 	doneTodos: state => state.todos.filter(todo => todo.done),
 	doneTodosCount: (state, getters) => getters.doneTodos.length,
 	getTodoById: state => id => state.todos.find(todo => todo.id === id),
 };
 
+// Mutations
 const mutations = {
+	reset: state => { state.count = 0; },
 	increment: state => { state.count += 1; },
 	decrement: state => { state.count -= 1; },
 	multiIncrement: (state, n) => { state.count *= n; },
@@ -23,6 +27,14 @@ const mutations = {
 	incrementNum: (state, payload) => { state.count += payload.amount; },
 };
 
+// Actiolns
+const actions = {
+	actionIncrement: context => context.commit('increment'),
+	actionShortIncrement: ({commit}) => commit('increment'),
+	asyncIncrement: ({commit}) => { setTimeout(() => commit('increment'), 2000); },
+	asyncDecrementNum: ({commit}, payload) => { setTimeout(() => commit('decrementNum', payload), 2000); },
+	asyncIncrementNum: ({commit}, payload) => { setTimeout(() => commit('incrementNum', payload), 2000); },
+};
 
 Vue.use(Vuex);
 
@@ -31,6 +43,7 @@ const store = new Vuex.Store({
 	state: initState,
 	getters: initGetters,
 	mutations,
+	actions,
 });
 
 export default store;
