@@ -75,3 +75,41 @@ similar to events
 
 - Mutations Follow Vue's Reactivity Rules
 - Mutations Must Be Synchronous => If want to use asynchronous operations, use Actions
+
+
+
+### actions
+
+similar to mutations, the difference being that:
+
+a. Instead of mutating the state, actions commit mutations.
+
+b. Actions can contain arbitrary asynchronous operations.
+
+>Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call `context.commit` to commit a mutation, or access the state and getters via `context.state` and `context.getters`. 
+
+
+
+
+
+- Actions are triggered with the `store.dispatch` method:
+
+  ```javascript
+  store.dispatch('increment')
+  ```
+
+- Perform **asynchronous** operations inside an action
+
+  ```javascript
+  actions: {
+    incrementAsync ({ commit }) {
+      setTimeout(() => {
+        commit('increment')
+      }, 1000)
+    }
+  }
+  ```
+
+  
+
+  
