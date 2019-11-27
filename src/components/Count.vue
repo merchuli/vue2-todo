@@ -56,6 +56,15 @@
 			<button @click="asyncIncrementNum">
 				+3
 			</button>
+			<p>async - use promise to increment (delay 3s)</p>
+			<p>message from promise: {{ msgFromPromise }}</p>
+			<button @click="promiseIncrement">
+				+
+			</button>
+			<p>async - use promise to increment -> actionB call promiseIncrement (delay 3s +1, delay 5s + 3)</p>
+			<button @click="actionB">
+				+1 +3
+			</button>
 		</div>
 	</div>
 </template>
@@ -74,6 +83,8 @@ const component = {
 			filterId: 2,
 			// for mutations
 			multiIncrementNum: 5,
+			// for actions
+			msgFromPromise: 'no message',
 		};
 	},
 	computed: {
@@ -146,6 +157,12 @@ const component = {
 		// Object-Styled dispatch
 		asyncIncrementNum() {
 			this.$store.dispatch({type: 'asyncIncrementNum', amount: 3});
+		},
+		promiseIncrement() {
+			this.$store.dispatch('promiseIncrement').then((res => { this.msgFromPromise = res; }));
+		},
+		actionB() {
+			this.$store.dispatch('actionB');
 		},
 	},
 };

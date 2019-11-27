@@ -34,6 +34,13 @@ const actions = {
 	asyncIncrement: ({commit}) => { setTimeout(() => commit('increment'), 2000); },
 	asyncDecrementNum: ({commit}, payload) => { setTimeout(() => commit('decrementNum', payload), 2000); },
 	asyncIncrementNum: ({commit}, payload) => { setTimeout(() => commit('incrementNum', payload), 2000); },
+	promiseIncrement: ({commit}) => new Promise(resolve => {
+		setTimeout(() => {
+			commit('increment');
+			resolve('message from the store actions -> promise resolved');
+		}, 3000);
+	}),
+	actionB: ({dispatch, commit}) => dispatch('promiseIncrement').then(() => setTimeout(() => commit('incrementNum', {amount: 3}), 5000)),
 };
 
 Vue.use(Vuex);
