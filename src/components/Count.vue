@@ -66,6 +66,10 @@
 				+1 +3
 			</button>
 		</div>
+		<div class="block">
+			<h2>Modules</h2>
+			<p>Add local module(counter) count and root count: {{ sumRootCount }}</p>
+		</div>
 	</div>
 </template>
 
@@ -88,37 +92,58 @@ const component = {
 		};
 	},
 	computed: {
-		// for state
+		// == For State ==
 		count() {
-			return this.$store.state.count;
+			// return this.$store.state.count;    // for the state when not separating modules
+			return this.$store.state.counter.count;
 		},
 		...mapState({
-			mapStateCount: state => state.count,
+			// mapStateCount: state => state.count,    // for the state when not separating modules
+			mapStateCount: state => state.counter.count,
+			// Since the counter store become the sub module of the root store
+			// the count here is the count of the root state
 			mapStateCountAlias: 'count',
 			mapStateCountPlusLocalState(state) {
-				return state.count + this.localCount;
+				// return state.count + this.localCount;    // for the state when not separating modules
+				return state.counter.count + this.localCount;
 			},
 		}),
-		// for getters
+		// == For getters == (The comment line is the original way to access state when not separating modules, and marked as *origin: )
 		doneTodos() {
-			return this.$store.getters.doneTodos;
+			// *origin: return this.$store.getters.doneTodos;
+			return this.$store.getters['counter/doneTodos'];
 		},
 		filterTodo() {
-			return this.$store.getters.getTodoById(this.filterId);
+			// *origin: return this.$store.getters.getTodoById(this.filterId);
+			return this.$store.getters['counter/getTodoById'](this.filterId);
 		},
-		...mapGetters([
-			'doneTodosCount',
-		]),
+		// *origin:
+		// ...mapGetters([
+		// 	'doneTodosCount',
+		// ]),
+		...mapGetters({
+			doneTodosCount: 'counter/doneTodosCount',
+		}),
+		// == For Modules - getters ==
+		sumRootCount() {
+			return this.$store.getters['counter/sumRootCount'];
+		},
 	},
 	methods: {
-		// == For mutations ==
-		...mapMutations([
-			// this.$store.commit('decrement');
-			'decrement',
-			// this.$store.commit('increment');
-			'increment',
-			'reset',
-		]),
+		// == For mutations == (The comment line is the original way to access state when not separating modules, and marked as *origin: )
+		// *origin
+		// ...mapMutations([
+		// 	// this.$store.commit('decrement');
+		// 	'decrement',
+		// 	// this.$store.commit('increment');
+		// 	'increment',
+		// 	'reset',
+		// ]),
+		...mapMutations({
+			decrement: 'counter/decrement',
+			increment: 'counter/increment',
+			reset: 'counter/reset',
+		}),
 		// decrement() {
 		// 	this.$store.commit('decrement');
 		// },
@@ -126,18 +151,26 @@ const component = {
 		// 	this.$store.commit('increment');
 		// },
 		multiIncrement() {
-			this.$store.commit('multiIncrement', this.multiIncrementNum);
+			// *origin: this.$store.commit('multiIncrement', this.multiIncrementNum);
+			this.$store.commit('counter/multiIncrement', this.multiIncrementNum);
 		},
 		// Commit with payload
 		decrementNum() {
-			this.$store.commit('decrementNum', {amount: 3});
+			// *origin: this.$store.commit('decrementNum', {amount: 3});
+			this.$store.commit('counter/decrementNum', {amount: 3});
 		},
 		// Object-Styled commit
 		incrementNum() {
-			this.$store.commit({type: 'incrementNum', amount: 3});
+			// this.$store.commit({type: 'incrementNum', amount: 3});
+			this.$store.commit({type: 'counter/incrementNum', amount: 3});
 		},
-		// == For actions ==
-		...mapActions([
+		// == For actions == (The comment line is the original way to access state when not separating modules, and marked as *origin: )
+		// *origin:
+		// ...mapActions([
+		// 	'actionIncrement',
+		// 	'actionShortIncrement',
+		// ]),
+		...mapActions('counter', [
 			'actionIncrement',
 			'actionShortIncrement',
 		]),
@@ -148,21 +181,26 @@ const component = {
 		// 	this.$store.dispatch('actionShortIncrement');
 		// },
 		asyncIncrement() {
-			this.$store.dispatch('asyncIncrement');
+			// *origin: this.$store.dispatch('asyncIncrement');
+			this.$store.dispatch('counter/asyncIncrement');
 		},
 		// Dispatch with payload
 		asyncDecrementNum() {
-			this.$store.dispatch('asyncDecrementNum', {amount: 3});
+			// *origin: this.$store.dispatch('asyncDecrementNum', {amount: 3});
+			this.$store.dispatch('counter/asyncDecrementNum', {amount: 3});
 		},
 		// Object-Styled dispatch
 		asyncIncrementNum() {
-			this.$store.dispatch({type: 'asyncIncrementNum', amount: 3});
+			// *origin: this.$store.dispatch({type: 'asyncIncrementNum', amount: 3});
+			this.$store.dispatch({type: 'counter/asyncIncrementNum', amount: 3});
 		},
 		promiseIncrement() {
-			this.$store.dispatch('promiseIncrement').then((res => { this.msgFromPromise = res; }));
+			// *origin: this.$store.dispatch('promiseIncrement').then((res => { this.msgFromPromise = res; }));
+			this.$store.dispatch('counter/promiseIncrement').then((res => { this.msgFromPromise = res; }));
 		},
 		actionB() {
-			this.$store.dispatch('actionB');
+			// *origin: this.$store.dispatch('actionB');
+			this.$store.dispatch('counter/actionB');
 		},
 	},
 };

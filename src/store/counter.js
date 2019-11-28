@@ -1,6 +1,3 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 // State
 const initState = {
 	count: 0,
@@ -15,6 +12,8 @@ const initGetters = {
 	doneTodos: state => state.todos.filter(todo => todo.done),
 	doneTodosCount: (state, getters) => getters.doneTodos.length,
 	getTodoById: state => id => state.todos.find(todo => todo.id === id),
+	// Advanced for adding root module's state
+	sumRootCount: (state, getters, rootState) => state.count + rootState.count,
 };
 
 // Mutations
@@ -45,14 +44,10 @@ const actions = {
 	// actionC: async ({ commit}) => commit('gotData', await getData()),
 };
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+export default {
 	namespaced: true,
 	state: initState,
 	getters: initGetters,
 	mutations,
 	actions,
-});
-
-export default store;
+};
