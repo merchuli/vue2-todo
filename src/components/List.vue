@@ -2,11 +2,12 @@
 	<div id="list">
 		<ul>
 			<li
-				v-for="item in list"
+				v-for="(item, index) in list"
 				:key="item.id"
 			>
 				<div>
 					{{ item.id }}.  {{ item.text }}
+					index: {{ index }}
 					<button @click="deleteItem(item)">
 						X
 					</button>
