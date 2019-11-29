@@ -7,6 +7,8 @@
 			type="text"
 			@keyup.enter="addItem"
 		>
+		<p>Use watcher: how many characters: {{ textNumber }}</p>
+		<p>Use computed: how many characters: {{ otherTextNumber }}</p>
 		<!-- <p>My input - {{ item }}</p> -->
 
 
@@ -38,15 +40,33 @@ export default {
 	data() {
 		return {
 			item: '',
+			textNumber: 0,
 			// item1: '',
 			// item2: '',
 			// item3: '',
 		};
 	},
+	computed: {
+		otherTextNumber() {
+			return this.item.length;
+		},
+	},
+	watch: {
+		item(newVal, oldVal) {
+			this.updateTextNumber(newVal.length - oldVal.length);
+		},
+		textNumber: 'someAction',
+	},
 	methods: {
 		addItem() {
 			this.$emit('add-item', this.item);
 			this.item = '';
+		},
+		updateTextNumber(addNum) {
+			this.textNumber += addNum;
+		},
+		someAction() {
+			console.log('some actions');
 		},
 		// addData() {
 		//   console.log('add data', this.item3);
