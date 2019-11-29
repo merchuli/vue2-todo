@@ -7,7 +7,7 @@
 		<h1>Practice Vue - Todo List</h1>
 		<input-area
 			msg="please add your todos"
-			@addItem="addItem"
+			@add-item="addItem"
 		/>
 		<list
 			:list="list"

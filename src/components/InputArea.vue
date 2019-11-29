@@ -45,7 +45,7 @@ export default {
 	},
 	methods: {
 		addItem() {
-			this.$emit('addItem', this.item);
+			this.$emit('add-item', this.item);
 			this.item = '';
 		},
 		// addData() {
