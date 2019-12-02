@@ -4,23 +4,24 @@
 
 ## Overview
 
-1. 定義
+1. Guide
 
-   - 常用 Syntax
-
+   - Template Syntax
+   - Computed Properties and Watchers
+2. API
    - Options & Data
+3. 注意事項
 
-2. Vuex
-
-3. 特性
-
+4. 特性
    - Reactivity
 
 
 
-## 定義
+## Guide
 
-### 常用 Syntax
+### Templae Syntax
+
+＊此處僅列出與 Angular 使用方式較為不同之處，`<Anuglar 用法>` -> `<Vue 用法>`
 
 `[key]` -> `:key`  (v-bind:key)
 
@@ -28,7 +29,53 @@
 
 
 
-### Options & Data
+## API
+
+### Options & Data (data / props / propsData? / computed / methods / watch)
+
+#### data
+
+- 該 component 的變數
+
+- Must be plain (含有零個或多個的 key / value )
+
+- 不建議**觀察**擁有狀態行為的對象
+
+```javascript
+// Method 1: direct `instance creation` (new Vue)
+var data = { count: 1 }
+
+var vm = new Vue({
+  data: data
+})
+
+vm.a // => 1
+vm.$data === data // => true
+
+// Method 2-1: Must use function when in Vue.extend()
+var Component = Vue.extend({
+  data: function () {
+    return { count: 1 }
+  },
+})
+
+// Method 2-2:  Or defining a new component
+Vue.component('button-counter', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+})
+```
+
+>  **Data Must Be a Function**
+>
+> Instead, **a component’s `data` option must be a function**, so that each instance can maintain an independent copy of the returned data object:
+>
+> If Vue didn’t have this rule, clicking on one button would affect the data of *all other instances*
+
+
 
 #### props
 
@@ -39,33 +86,6 @@
 > 待確認之 Angualr 在區辨父元素傳進的 attribute 時好像沒有這麼友善，突然想到好像也有可以識別的
 
 
-
-##### data
-
-該 component 的變數
-
-Must be plain (含有零個或多個的 key / value )
-
-不建議觀察擁有狀態行為的對象
-
-```javascript
-// 官網範例 (direct instance creation)
-var data = { a: 1 }
-
-var vm = new Vue({
-  data: data
-})
-
-// 專案用法
-data() {
-  return {
-    listIndex: 1,
-    list: [ ],
-  };
-},
-```
-
-​    
 
 #### methods
 
@@ -81,67 +101,11 @@ data() {
 
 
 
+
+
+
+
 //////// Draft Draft Draft Draft Draft Draft
-
-///////
-
-Components 
-
-使用 new Vue 的方式
-
-```javascript
-var vm = new Vue({
-  el: '#demo',
-  data: {
-    firstName: 'Foo',
-    lastName: 'Bar'
-  },
-  computed: {
-    fullName: function () {
-      return this.firstName + ' ' + this.lastName
-    }
-  }
-})
-```
-
-
-
-另一個方式
-
-```javascript
-// Define a new component called button-counter
-Vue.component('button-counter', {
-  data: function () {
-    return {
-      count: 0
-    }
-  },
-  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-})
-
-
-// 
-Vue.component('button-counter', {
-  data() {
-    return {
-      count: 0
-    }
-  },
-  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-})
-```
-
-**Data Must Be a Function**
-
-Instead, **a component’s `data` option must be a function**, so that each instance can maintain an independent copy of the returned data object:
-
-If Vue didn’t have this rule, clicking on one button would affect the data of *all other instances*
-
-
-
-
-
-
 
 //////
 
@@ -179,11 +143,11 @@ computed: {
 
 
 
-#### watchers
+#### watchers [1]
 
 用來監聽 data 即時變化
 
-This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
+This is most useful when you want to perform **asynchronous or expensive operations** in response to changing data.
 
 ```javascript
 
@@ -200,4 +164,20 @@ Mixins are a flexible way to distribute reusable functionalities for Vue compone
 
 
 #### lifecycle hooks
+
+
+
+
+
+## 注意事項
+
+1. Properties that start with `_` or `$` will **not** be proxied on the Vue instance because they may conflict with Vue’s internal properties and API methods. You will have to access them as `vm.$data._property`.
+
+
+
+## Reference
+
+[1] Watchers
+
+https://www.youtube.com/watch?v=OEitxLemE_g
 
