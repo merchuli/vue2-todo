@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<!-- Practice Vue - Todo List -->
 		<h1>Practice Vue - Todo List</h1>
 		<input-area
 			msg="please add your todos"
@@ -9,13 +10,15 @@
 			:list="list"
 			@deleteItem="deleteItem"
 		/>
+
 		<hr>
+		<!-- Practice Vue - Slots -->
 		<h1>Practice Vue - Slots</h1>
 		<h2>- Slot Content -</h2>
 		<my-slot>Outer Message {{ listIndex }}</my-slot>
 		<h2>- Named Slots -</h2>
 		<base-layout>
-			<template v-slot:header>
+			<template #header>
 				<h3>Header</h3>
 				<h4>Here might be a page title for the Header</h4>
 			</template>
@@ -24,14 +27,17 @@
 			<p>A paragraph for the main content.</p>
 			<p>And another one.</p>
 
-			<template v-slot:footer>
+			<template v-slot:footer="slotProps">
 				<h3>Footer</h3>
-				<p>Here's some contact info</p>
+				<p>Here's some user info</p>
+				{{ slotProps.user.career }}
 			</template>
 
 			<b>Some other words, although put on the bottom of the parent component but this paragraph would show on the default block</b>
 		</base-layout>
+
 		<hr>
+		<!-- Practice Vuex -->
 		<h1>Practice Vuex</h1>
 		<counter />
 	</div>
