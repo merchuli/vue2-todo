@@ -14,6 +14,9 @@
 			@deleteItem="deleteItem"
 		/>
 		<hr>
+		<h1>Practice Vue - Slots</h1>
+		<my-slot>Outer Message</my-slot>
+		<hr>
 		<h1>Practice Vuex</h1>
 		<counter />
 	</div>
@@ -22,13 +25,14 @@
 <script>
 import InputArea from './components/InputArea.vue';
 import List from './components/List.vue';
+import MySlot from './components/MySlot.vue';
 import Counter from './components/Count.vue';
 
 export default {
-	name: 'App',
 	components: {
 		InputArea,
 		List,
+		MySlot,
 		Counter,
 	},
 	data() {
