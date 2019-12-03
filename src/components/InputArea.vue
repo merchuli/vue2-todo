@@ -7,7 +7,7 @@
 			type="text"
 			@keyup.enter="addItem"
 		>
-		<p>Use watcher: how many characters: {{ textNumber }}</p>
+		<p>Use watcher: how many characters: {{ textNumber }}, and someText would be: {{ someText }}</p>
 		<p>Use computed: how many characters: {{ otherTextNumber }}</p>
 		<!-- <p>My input - {{ item }}</p> -->
 
@@ -41,6 +41,7 @@ export default {
 		return {
 			item: '',
 			textNumber: 0,
+			someText: '--',
 			// item1: '',
 			// item2: '',
 			// item3: '',
@@ -66,7 +67,7 @@ export default {
 			this.textNumber += addNum;
 		},
 		someAction() {
-			console.log('some actions');
+			this.someText = 'some actions';
 		},
 		// addData() {
 		//   console.log('add data', this.item3);
