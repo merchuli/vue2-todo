@@ -4,28 +4,93 @@
 
 ## Overview
 
-1. Guide
+1. 常用指令
 
-   - Template Syntax
-   - Computed Properties and Watchers
-2. API
-   - Options & Data
-3. 注意事項
+2. Guide
 
-4. 特性
-   - Reactivity
+- Template Syntax (Essentials)
+- Computed Properties and Watchers (Essentials)
+- Slots (Components In Depth)
+
+3. API
+
+- Options & Data
+
+4. 注意事項
+
+5. 特性
+
+- Reactivity
+
+
+
+## 常用指令
+
+### Create a project
+
+```
+vue create my-project
+```
+
+### Install eslint packages for Vue
+
+```
+vue add @vue/cli-plugin-eslint
+```
+
+Eslint reference: https://pjchender.blogspot.com/2019/07/vue-vue-style-guide-eslint-plugin-vue.html
 
 
 
 ## Guide
 
-### Templae Syntax
+### Templae Syntax (Essentials)
 
 ＊此處僅列出與 Angular 使用方式較為不同之處，`<Anuglar 用法>` -> `<Vue 用法>`
 
 `[key]` -> `:key`  (v-bind:key)
 
 `(click)` -> `@click`  (v-on:click)
+
+
+
+### Slots (Components In Depth) [1]
+
+＊有點像是 Angular 中 ng-template / ng-container / ng-content 的用法
+
+- Shorthand: `#`
+
+
+
+#### Slot Content
+
+- can contain any template code, including HTML or other components
+- If children component did not contain a slot element, any content provided between its opening and closing tag would be discarded.
+
+```html
+<!-- Parent Componet -->
+<navigation-link url="/profile">
+  Your Profile
+</navigation-link>
+
+<!-- Children Component: navigation-link -->
+<a
+  v-bind:href="url"
+  class="nav-link"
+>
+	<slot></slot>
+</a>
+
+<!-- When the component renders, it turns out to be -->
+<a
+   v-bind:href="url"
+   class="nav-link"
+   >
+  Your Profile
+</a>
+```
+
+
 
 
 
@@ -101,23 +166,15 @@ Vue.component('button-counter', {
 
 
 
+**/////////////////////////// Draft Draft Draft Draft Draft Draft ///////////////////////////**
 
-
-
-
-//////// Draft Draft Draft Draft Draft Draft
-
-//////
+///////////////////////////
 
 Event Modifier
 
 
 
-
-
-
-
-////
+///////////////////////////
 
 Computed Properties and Watchers
 
@@ -143,7 +200,7 @@ computed: {
 
 
 
-#### watchers [1]
+#### watchers [2]
 
 用來監聽 data 即時變化
 
@@ -155,17 +212,21 @@ This is most useful when you want to perform **asynchronous or expensive operati
 
 
 
+///////////////////////////
+
 #### mixins
 
 Mixins are a flexible way to distribute reusable functionalities for Vue components. A mixin object can contain any component options. When a component uses a mixin, all options in the mixin will be “mixed” into the component’s own options.
 
 
 
-
+///////////////////////////
 
 #### lifecycle hooks
 
 
+
+///////////////////////////
 
 
 
@@ -177,7 +238,11 @@ Mixins are a flexible way to distribute reusable functionalities for Vue compone
 
 ## Reference
 
-[1] Watchers
+[1] Slots
+
+https://www.youtube.com/watch?v=qCrogbJSHnk
+
+[2] Watchers
 
 https://www.youtube.com/watch?v=OEitxLemE_g
 
