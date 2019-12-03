@@ -58,6 +58,8 @@ Eslint reference: https://pjchender.blogspot.com/2019/07/vue-vue-style-guide-esl
 
 ＊有點像是 Angular 中 ng-template / ng-container / ng-content 的用法
 
+**Slot props allow us to turn slots into reusable templates that can render different content based on input props.** This is most useful when you are designing a reusable component that encapsulates data logic while allowing the consuming parent component to customize part of its layout.
+
 - Shorthand: `#`
 
 
@@ -91,6 +93,75 @@ Eslint reference: https://pjchender.blogspot.com/2019/07/vue-vue-style-guide-esl
 ```
 
 
+
+#### Named Slots & Scoped Slots
+
+```html
+<!-- Parent Compoent -->
+<base-layout>
+  <template v-slot:header>
+    <h3>Header</h3>
+    <h4>Here might be a page title for the Header</h4>
+  </template>
+
+  <h3>Default</h3>
+  <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
+
+  <template v-slot:footer="slotProps">
+    <h3>Footer</h3>
+    <p>Here's some user info</p>
+    {{ slotProps.user.career }}
+  </template>
+
+  <b>Some other words, although put on the bottom of the parent component but this paragraph would show on the default block</b>
+</base-layout>
+
+<!-- Children Component: BaseLayout -->
+<div class="container">
+		<header>
+			<slot name="header" />
+		</header>
+		<main>
+			<p>Hello {{ user.name }},</p>
+		</main>
+		<footer>
+			<!-- Won't working since the user is not binding to the slot
+			<slot name="footer">
+				{{ user.career }}
+			</slot> -->
+			<slot
+				name="footer"
+				:user="user"
+			>
+				<!-- Why not working ? -->
+				<p>Hi {{ user.name }}, </p>
+			</slot>
+		</footer>
+	</div>
+```
+
+
+
+#### Dynamic Slot Names
+
+```html
+<base-layout>
+  <template v-slot:[dynamicSlotName]>
+    ...
+  </template>
+</base-layout>
+```
+
+
+
+#### Named Slots Shorthand
+
+```html
+<current-user #default="{ user }">
+  {{ user.firstName }}
+</current-user>
+```
 
 
 
