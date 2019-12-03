@@ -1,9 +1,5 @@
 <template>
 	<div id="app">
-		<img
-			alt="Vue logo"
-			src="./assets/logo.png"
-		>
 		<h1>Practice Vue - Todo List</h1>
 		<input-area
 			msg="please add your todos"
@@ -15,7 +11,26 @@
 		/>
 		<hr>
 		<h1>Practice Vue - Slots</h1>
-		<my-slot>Outer Message</my-slot>
+		<h2>- Slot Content -</h2>
+		<my-slot>Outer Message {{ listIndex }}</my-slot>
+		<h2>- Named Slots -</h2>
+		<base-layout>
+			<template v-slot:header>
+				<h3>Header</h3>
+				<h4>Here might be a page title for the Header</h4>
+			</template>
+
+			<h3>Default</h3>
+			<p>A paragraph for the main content.</p>
+			<p>And another one.</p>
+
+			<template v-slot:footer>
+				<h3>Footer</h3>
+				<p>Here's some contact info</p>
+			</template>
+
+			<b>Some other words, although put on the bottom of the parent component but this paragraph would show on the default block</b>
+		</base-layout>
 		<hr>
 		<h1>Practice Vuex</h1>
 		<counter />
@@ -23,6 +38,7 @@
 </template>
 
 <script>
+import BaseLayout from './components/layout/BaseLayout.vue';
 import InputArea from './components/InputArea.vue';
 import List from './components/List.vue';
 import MySlot from './components/MySlot.vue';
@@ -30,6 +46,7 @@ import Counter from './components/Count.vue';
 
 export default {
 	components: {
+		BaseLayout,
 		InputArea,
 		List,
 		MySlot,
