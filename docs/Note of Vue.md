@@ -21,6 +21,7 @@
 5. 特性
 
 - Reactivity
+- 元件化
 
 
 
@@ -233,6 +234,111 @@ Vue.component('button-counter', {
 
 
 
+### Instance Properties ( \$attrs / \$listener ) [3]
+
+為了解決跨多級的傳遞關係，使用 vuex 太大材小用，使用 props + emit 跨多層級，中間層僅為中轉站但卻要多 props 程式碼會顯得太過凌亂，這時候就可以使用 \$attrs 跟 \$listener
+
+main component
+
+- first layer component
+  - second layer component
+
+
+
+Main Component
+
+```vue
+<template>
+ <div id="app">
+   <!-- 往下傳兩個 props，並監聽子元件的兩個事件 -->
+   <first-layer-child
+       :to-first-layer="To first layer"
+       :to-second-layer="To second layer"
+       @from-first-layer="onFromFirstLayer"
+       @from-second-layer="onFromSecondLayer"> 
+   </first-layer-child>
+ </div>
+</template>
+<script>
+ import FirstLayerChild from './FirstLayerChild.vue';
+ export default {
+ 		 data() {
+ 		 		return {};
+ 		 },
+ 		 components: { FirstLayerChild },
+		 methods: {
+         onFromFirstLayer() {
+             console.log('From First Layer');
+         },
+         onFromSecondLayer() {
+             console.log('From Second Layer');
+         }
+ 		 }
+ };
+</script>
+```
+
+
+
+First Layer Component
+
+```vue
+<template>
+<div class="child-1">
+		<p v-text="'First Layer:'"/>
+  	<p v-text="`props: ${toFirstLayer}`" />
+  	<p>$attrs: {{$attrs}}</p>
+  	<hr>
+ 	 	<!-- Second Layer 元件中能直接觸發 onFromSecondLayer 的原因在於 First Layer 元件呼叫 Second Layer 元件時，使用 v-on 繫結了$listeners 屬性 -->
+  	<!-- 通過 v-bind 繫結 $attrs屬性，Second Layer 元件可以直接獲取到 First Layer 元件中傳遞下來的props（First Layer 元件中 props 宣告的除外，因為 inheritAttrs 被設定為 false） -->
+  <second-layer-child v-bind="$attrs" v-on="$listeners"></second-layer-child>
+  </div>
+</template>
+<script>
+  import SecondLayerChild from './SecondLayerChild.vue';
+  export default {
+    props: ['toFirstLayer'],
+    data () {
+      return {};
+    },
+    inheritAttrs: false,
+    components: { SecondLayerChild },
+    mounted () {
+      this.$emit('fromFirstLayer');
+    }
+  };
+</script>
+```
+
+
+
+Second Layer Component
+
+```vue
+<template>
+   <div>
+     <p v-text="'Second Layer: '" />
+     <p v-text="`props: ${toSecondLayer}`" />
+     <p>$attrs: {{$attrs}}</p>
+     <hr>
+   </div>
+</template>
+<script>
+ export default {
+   props: ['toSecondLayer'],
+   data () {
+   		return {};
+   },
+   inheritAttrs: false,
+   mounted () {
+   		this.$emit('fromSecondLayer');
+   }
+ };
+</script>
+```
+
+
+
 
 
 
@@ -307,6 +413,18 @@ Mixins are a flexible way to distribute reusable functionalities for Vue compone
 
 
 
+## 特性
+
+### Reactivity
+
+### 元件化
+
+>元件化的概念不確定是不是在學 Angular 2+ 時比較少提到或者是沒有這個觀念，在接觸 Vue 時會大大地感受到  `元件化` 這個概念，會突然有點轉不過來。
+
+- Single Source of Truth (SSOT) 
+
+
+
 ## Reference
 
 [1] Slots
@@ -316,4 +434,8 @@ https://www.youtube.com/watch?v=qCrogbJSHnk
 [2] Watchers
 
 https://www.youtube.com/watch?v=OEitxLemE_g
+
+[3]
+
+[https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/219560/](https://codertw.com/前端開發/219560/)
 
