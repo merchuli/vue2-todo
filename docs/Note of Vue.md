@@ -222,6 +222,14 @@ Vue.component('button-counter', {
 
 > 待確認之 Angualr 在區辨父元素傳進的 attribute 時好像沒有這麼友善，突然想到好像也有可以識別的
 
+type 型別
+
+default 預設值
+
+required 是否為必須傳入的，如果沒有傳入會在非正式環境 console 出 warning
+
+validator
+
 
 
 #### methods
@@ -336,10 +344,6 @@ Second Layer Component
  };
 </script>
 ```
-
-
-
-
 
 
 
