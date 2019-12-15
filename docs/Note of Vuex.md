@@ -4,6 +4,14 @@
 
 
 
+## Installation
+
+```
+npm install vuex --save
+```
+
+
+
 ## state
 
 single source of truth
