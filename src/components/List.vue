@@ -9,7 +9,7 @@
 					{{ item.id }}.  {{ item.text }}
 					index: {{ index }}
 					<button @click="deleteItem(item)">
-						Xx
+						Xxo
 					</button>
 				</div>
 			</li>
